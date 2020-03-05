@@ -216,8 +216,28 @@ spec:
     name: {{ template "prometheus-operator.fullname" . }}-prometheus-am-relabel-confg
     key: additional-alert-relabel-configs.yaml
 {{- end }}
-{{- if .Values.prometheus.prometheusSpec.containers }}
+  
+
   containers:
+    # Injects the stackdriver sidecar container for exporting prometheus metrics
+    - name: stackdriver-exporter
+      image: {{ .Values.stackdriverSidecar.image }}
+      imagePullPolicy: Always
+      args: 
+        - --stackdriver.project-id={{ .Values.stackdriverSidecar.gcpProjectId }}
+        - --prometheus.wal-directory=prometheus/wal
+        - --stackdriver.kubernetes.location={{ .Values.stackdriverSidecar.region }}
+        - --stackdriver.kubernetes.cluster-name={{ .Values.stackdriverSidecar.clusterName }}
+        #- \"--stackdriver.generic.location=us-central1\"
+        #- \"--stackdriver.generic.namespace=terra-stackdriver-k8s\"
+      ports:
+        - name: stackdriver-exporter
+          containerPort: 9091
+      volumeMounts:
+        - name: prometheus-monitoring-prometheus-prom-prometheus-db
+          mountPath: /prometheus
+
+{{- if .Values.prometheus.prometheusSpec.containers }}      
 {{ toYaml .Values.prometheus.prometheusSpec.containers | indent 4 }}
 {{- end }}
 {{- if .Values.prometheus.prometheusSpec.priorityClassName }}

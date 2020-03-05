@@ -1903,3 +1903,11 @@ prometheus:
     ## https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#podmetricsendpoint
     ##
     # podMetricsEndpoints: []
+
+# Used for injecting the stackdriver sidecar
+stackdriverSidecar:
+  image: bleh 
+  gcpProjectId: stuff
+  region: boston
+  clusterName: k8s
+
