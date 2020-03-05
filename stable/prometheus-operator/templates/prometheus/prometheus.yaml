@@ -234,7 +234,7 @@ spec:
         - name: stackdriver-exporter
           containerPort: 9091
       volumeMounts:
-        - name: prometheus-monitoring-prometheus-prom-prometheus-db
+        - name: {{ template "prometheus-operator.prometheus.fullname" . }}-prometheus-db
           mountPath: /prometheus
 
 {{- if .Values.prometheus.prometheusSpec.containers }}      
