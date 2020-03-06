@@ -1906,16 +1906,16 @@ prometheus:
 
 # Values for configuring the stackdriver sidecar container for prometheus server.
 stackdriverSidecar:
-  
+
   # Supplies the image and version tag of the stackdriver-exporter
-  image: bleh 
+  image: "" 
 
   # GCP project id for project that hosts stackdriver workspace to export to.
-  gcpProjectId: stuff
+  gcpProjectId: ""
 
   # Gcloud region for the cluster being monitored
-  region: boston
+  region: ""
 
   # Unique name for the k8s-cluster, must match the name in GKE
-  clusterName: k8s
+  clusterName: ""
 
