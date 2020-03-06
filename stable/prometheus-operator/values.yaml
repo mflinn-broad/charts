@@ -1904,10 +1904,18 @@ prometheus:
     ##
     # podMetricsEndpoints: []
 
-# Used for injecting the stackdriver sidecar
+# Values for configuring the stackdriver sidecar container for prometheus server.
 stackdriverSidecar:
+  
+  # Supplies the image and version tag of the stackdriver-exporter
   image: bleh 
+
+  # GCP project id for project that hosts stackdriver workspace to export to.
   gcpProjectId: stuff
+
+  # Gcloud region for the cluster being monitored
   region: boston
+
+  # Unique name for the k8s-cluster, must match the name in GKE
   clusterName: k8s
 

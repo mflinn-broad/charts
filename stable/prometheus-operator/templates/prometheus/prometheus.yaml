@@ -216,7 +216,6 @@ spec:
     name: {{ template "prometheus-operator.fullname" . }}-prometheus-am-relabel-confg
     key: additional-alert-relabel-configs.yaml
 {{- end }}
-  
 
   containers:
     # Injects the stackdriver sidecar container for exporting prometheus metrics
@@ -234,7 +233,7 @@ spec:
         - name: stackdriver-exporter
           containerPort: 9091
       volumeMounts:
-        - name: {{ template "prometheus-operator.prometheus.fullname" . }}-prometheus-db
+        - name: {{ template "prometheusServer.fullname" . }}-prometheus-db
           mountPath: /prometheus
 
 {{- if .Values.prometheus.prometheusSpec.containers }}      

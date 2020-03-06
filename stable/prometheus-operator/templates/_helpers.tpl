@@ -39,6 +39,11 @@ The longest name that gets created adds and extra 37 characters, so truncation s
 {{- printf "%s-alertmanager" (include "prometheus-operator.fullname" .) -}}
 {{- end }}
 
+{{/* Fullnane suffixed with -prom */}}
+{{- define "prometheusServer.fullname" -}}
+{{- printf "%s-prometheus-prom" .Release.Name -}}
+{{- end }}
+
 {{/* Create chart name and version as used by the chart label. */}}
 {{- define "prometheus-operator.chartref" -}}
 {{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
